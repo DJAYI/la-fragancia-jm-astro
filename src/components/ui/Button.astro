@@ -7,7 +7,7 @@ interface Props {
 const { href, variant = "action" } = Astro.props;
 
 const baseClasses =
-  "px-5 py-2 hover:cursor-pointer transition font-bold text-sm rounded-sm";
+  "px-2.5 py-2 md:px-5 md:py-2 hover:cursor-pointer transition text-center font-bold text-xs md:text-sm rounded-sm";
 
 const variantClasses: Record<string, string> = {
   action: "bg-action text-black hover:bg-amber-500",
