@@ -1,0 +1,62 @@
+---
+import Button from "./ui/Button.astro";
+import SocialLinks from "./SocialLinks.astro";
+---
+
+<section
+  id="inicio"
+  aria-label="Presentación"
+  class="flex justify-center gap-24 pt-20"
+>
+  <img
+    src="/src/assets/hero-image.png"
+    class="aspect-587/679 object-cover w-1/3"
+    alt="Botella de perfume de La Fragancia JM"
+  />
+
+  <div class="flex flex-col gap-32">
+    <h1
+      class="text-primary text-9xl font-heading relative max-w-3xl leading-36"
+    >
+      LA <br /> FRAGANCIA
+      <span
+        class="font-decorative text-secondary font-semibold text-[145px] absolute -bottom-20 -right-12"
+      >
+        JM
+      </span>
+    </h1>
+
+    <div
+      class="max-w-150 relative flex flex-col gap-12 justify-center items-center"
+    >
+      <blockquote class="relative">
+        <span
+          class="font-quotation text-[84px] absolute -top-10 left-0 text-secondary font-semibold"
+          aria-hidden="true"
+        >
+          &ldquo;
+        </span>
+
+        <p
+          class="font-testimonial ms-11 block text-white text-2xl leading-9 text-pretty"
+        >
+          La esencia del lujo, encapsulada en cada gota. Haz que cada paso tenga
+          su propio aroma.
+        </p>
+      </blockquote>
+
+      <section aria-label="Acciones principales" class="flex gap-4 -ms-9">
+        <Button href="#coleccion" variant="action">
+          Explora nuestra colección
+        </Button>
+        <Button href="#resenas" variant="secondary">
+          Descubre nuestras reseñas
+        </Button>
+      </section>
+
+      <section aria-label="Redes sociales" class="-ms-9 mt-5">
+        <SocialLinks />
+      </section>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@import "@fontsource/italiana";
+@import "@fontsource/gwendolyn";
+@import "@fontsource/gothic-a1";
+@import "@fontsource-variable/hahmlet";
+
+@theme {
+  --font-heading: 'Italiana', 'sans-serif';
+  --font-decorative: 'Gwendolyn', 'sans-serif';
+  --font-testimonial: 'Hahmlet Variable', 'sans-serif';
+  --font-quotation: 'Gothic A1', 'sans-serif';
+
+  --color-primary: #FDC322;
+  --color-secondary: #fff;
+
+  --color-action: #E8AE10;
+}

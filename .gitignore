@@ -1,6 +1,14 @@
 # build output
 dist/
 
+# AI && Skills
+
+.agent/
+.skills/
+.agents/
+.claude/
+skills-lock.json
+
 # generated types
 .astro/
 
