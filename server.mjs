@@ -9,6 +9,8 @@ server.listen(3000, "127.0.0.1", () => {
 
   console.log("Press Ctrl+C to stop the server.");
 
+  console.log("Keeping the server alive...");
+
   setInterval(() => {
     console.info("Server is still running...");
   }, 5000);
