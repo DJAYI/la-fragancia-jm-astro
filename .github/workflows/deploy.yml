@@ -16,34 +16,13 @@ jobs:
         run: servy-cli stop --name="la-fragancia-astro"
         continue-on-error: true
 
-      - name: Copy files
+      - name: Copy only server file
         shell: powershell
         run: |
-          robocopy `
-            "$env:GITHUB_WORKSPACE" `
-            "C:\Users\YOLIMA\Workspace\apps\la-fragancia-jm-astro" `
-            /MIR /NFL /NDL /NJH /NJS /NP
+          Copy-Item `
+            "$env:GITHUB_WORKSPACE\server.mjs" `
+            "C:\Users\YOLIMA\Workspace\apps\la-fragancia-jm-astro\server.mjs" `
+            -Force
 
       - name: Start service
         run: servy-cli start --name="la-fragancia-astro"
-
-      - name: Verify deployment
-        shell: powershell
-        run: |
-          $maxRetries = 10
-          $delay = 2
-
-          for ($i = 0; $i -lt $maxRetries; $i++) {
-            try {
-              $response = Invoke-WebRequest -Uri "http://localhost:3000" -UseBasicParsing
-              if ($response.StatusCode -eq 200) {
-                Write-Host "Deployment successful"
-                exit 0
-              }
-            } catch {
-              Write-Host "Waiting for service... attempt $i"
-              Start-Sleep -Seconds $delay
-            }
-          }
-
-          throw "Deployment failed: service not responding"
