@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stop service
+        run: servy-cli stop --name="la-fragancia-astro"
+        continue-on-error: true
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: |
+          npm run build
+
+      - name: Install to Servy
+        run: servy-cli install --name="la-fragancia-astro" --path="C:\Program Files\nodejs\node.exe" --startupDir="C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro" --params="C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro\server.mjs"
+
+      - name: Start service
+        run: servy-cli start --name="la-fragancia-service" --command="npm run start"
