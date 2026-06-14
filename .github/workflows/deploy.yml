@@ -21,15 +21,29 @@ jobs:
         run: |
           robocopy `
             "$env:GITHUB_WORKSPACE" `
-            "C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro" `
-            server.mjs
+            "C:\Users\YOLIMA\Workspace\apps\la-fragancia-jm-astro" `
+            /MIR /NFL /NDL /NJH /NJS /NP
 
       - name: Start service
         run: servy-cli start --name="la-fragancia-astro"
+
       - name: Verify deployment
+        shell: powershell
         run: |
-          $response = Invoke-WebRequest -Uri "http://localhost:3000" -UseBasicParsing
-          if ($response.StatusCode -ne 200) {
-            throw "Deployment failed: Service is not responding with status code 200."
+          $maxRetries = 10
+          $delay = 2
+
+          for ($i = 0; $i -lt $maxRetries; $i++) {
+            try {
+              $response = Invoke-WebRequest -Uri "http://localhost:3000" -UseBasicParsing
+              if ($response.StatusCode -eq 200) {
+                Write-Host "Deployment successful"
+                exit 0
+              }
+            } catch {
+              Write-Host "Waiting for service... attempt $i"
+              Start-Sleep -Seconds $delay
+            }
           }
-          Write-Host "Deployment successful: Service is responding with status code 200."
+
+          throw "Deployment failed: service not responding"
