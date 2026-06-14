@@ -16,22 +16,20 @@ jobs:
         run: servy-cli stop --name="la-fragancia-astro"
         continue-on-error: true
 
-      - name: Sync files
+      - name: Copy files
         shell: powershell
         run: |
           robocopy `
             "$env:GITHUB_WORKSPACE" `
             "C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro" `
-            /MIR `
-            /XD node_modules .git .github
-
-      - name: Install dependencies
-        working-directory: C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro
-        run: npm ci
-
-      - name: Build
-        working-directory: C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro
-        run: npm run build
+            server.mjs
 
       - name: Start service
         run: servy-cli start --name="la-fragancia-astro"
+      - name: Verify deployment
+        run: |
+          $response = Invoke-WebRequest -Uri "http://localhost:3000" -UseBasicParsing
+          if ($response.StatusCode -ne 200) {
+            throw "Deployment failed: Service is not responding with status code 200."
+          }
+          Write-Host "Deployment successful: Service is responding with status code 200."
