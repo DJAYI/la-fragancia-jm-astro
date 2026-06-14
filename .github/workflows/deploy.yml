@@ -16,15 +16,22 @@ jobs:
         run: servy-cli stop --name="la-fragancia-astro"
         continue-on-error: true
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
+      - name: Sync files
+        shell: powershell
         run: |
-          npm run build
+          robocopy `
+            "$env:GITHUB_WORKSPACE" `
+            "C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro" `
+            /MIR `
+            /XD node_modules .git .github
 
-      - name: Install to Servy
-        run: servy-cli install --name="la-fragancia-astro" --path="C:\Program Files\nodejs\node.exe" --startupDir="C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro" --params="C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro\server.mjs"
+      - name: Install dependencies
+        working-directory: C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro
+        run: npm ci
+
+      - name: Build
+        working-directory: C:\Users\YOLIMA\Workspace\la-fragancia-jm-astro
+        run: npm run build
 
       - name: Start service
-        run: servy-cli start --name="la-fragancia-service" --command="npm run start"
+        run: servy-cli start --name="la-fragancia-astro"
