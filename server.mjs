@@ -11,6 +11,10 @@ server.listen(3000, "127.0.0.1", () => {
 
   console.log("Keeping the server alive...");
 
+  console.log(
+    "This is a simple HTTP server that responds with 'Hello World!' to every request.",
+  );
+
   setInterval(() => {
     console.info("Server is still running...");
   }, 5000);
